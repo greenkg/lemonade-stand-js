@@ -33,12 +33,39 @@
 
   <div id="play-screen">
     <div id="play">
-      <img src="assets/images/game.svg">
-    </div>
-    <div class="clickable" id="make-lemonade">
-      Make
+      <div class="row">
+        <div id="info">
+          Weather
+        </div>
+      </div>
+      <div class="row">
+        <div class="items" id="money">
+          100
+        </div>
+        <div class="items clickable" id="pitchers">
+          0
+        </div>
+      </div>
+      <div class="row">
+        <div class="items clickable buyable" id="lemons">
+          0
+        </div>
+        <div class="items clickable buyable" id="sugar">
+          0
+        </div>
+        <div class="items clickable buyable" id="ice">
+          0
+        </div>
+        <div class="items clickable buyable" id="cups">
+          0
+        </div>
+      </div>
+      <div class="row">
+        <button id="start-day">Start Day</button>
+      </div>
     </div>
   </div>
+
 
   <script src="assets/js/game.js"></script>
 </body>

@@ -1,6 +1,6 @@
 #game {
-  width: 600px;
-  height: 400px;
+  width: 400px;
+  height: 600px;
   background-color: honeydew;
 }
 
@@ -21,15 +21,59 @@
   height: 300px;
 }
 
-.clickable {
-  position: absolute;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
+#info {
+  width: 250px;
+  height: 250px;
+  border-radius: 150px;
+  background-color: rgba(255, 212, 42, 1);
 }
 
-#make-lemonade {
-  top: 90px;
-  left: 395px;
-  width: 50px;
-  height: 70px;
+#play {
+  text-align: center;
+}
+
+.row {
+  padding-top: 40px;
+}
+
+#info {
+  margin: auto;
+  
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.items {
+  height: 35px;
+  width: 70px;
+  border-radius: 35px;
+  display: inline-block;
+  margin: 0px 10px 0px 10px;
+  padding-top: 35px;
+}
+
+#money {
+  background-color: green;
+}
+
+#pitchers {
+  background-color: orange;
+}
+
+#lemons {
+  background-color: yellow;
+}
+
+#sugar {
+  background-color: lightgray;
+}
+
+#ice {
+  background-color: lightblue;
+}
+
+#cups {
+  background-color: red;
 }

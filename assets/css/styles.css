@@ -1,0 +1,35 @@
+#game {
+  width: 600px;
+  height: 400px;
+  background-color: honeydew;
+}
+
+#start-screen, #introduction-screen, #play-screen {
+  display: none;
+}
+
+#start, #introduction {
+  text-align: center;
+}
+
+#start-button, #begin-button {
+  cursor: pointer;
+}
+
+#splash img {
+  width: 300px;
+  height: 300px;
+}
+
+.clickable {
+  position: absolute;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#make-lemonade {
+  top: 90px;
+  left: 395px;
+  width: 50px;
+  height: 70px;
+}

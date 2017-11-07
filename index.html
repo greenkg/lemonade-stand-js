@@ -18,24 +18,76 @@
   </div>
 
   <div id="start-screen">
+    <div class="row">
+      <div id="game-name">
+        <h1>lemonade</h1>
+      </div>
+    </div>
     <div id="start">
       <div id="splash"><img src="assets/images/lemon.svg"></div>
-      <h3 id="start-button">Start Game</h3>
+    </div>
+    <div class="row">
+      <button id="start-button">Start Game</button>
     </div>
   </div>
 
   <div id="introduction-screen">
+    <div class="row">
+      <div id="game-name">
+        <h1>lemonade</h1>
+      </div>
+    </div>
     <div id="introduction">
-      <h1>A brief backstory and how to play.</h1>
-      <h3 id="begin-button">Begin game</h3>
+    </div>
+    <div class="row">
+      <button id="next-button">Next</button>
+    </div>
+  </div>
+
+  <div id="intro1">
+    <h4>What do you give an injured lemon?</h4>
+    <h5>Lemon-aid!</h5>
+    <div class="row-thin">
+      <p>Welcome to the game where you make lemonade.</p>
+    </div>
+    <div class="row-thin">
+      <p>You start with a little bit of money</p>
+      <img src="https://s3.amazonaws.com/lemonade-stand/money.svg" class="intro-img">
+    </div>
+    <div class="row-thin">
+      <p>Click on the supplies to buy more</p>
+      <img src="https://s3.amazonaws.com/lemonade-stand/lemon-item.svg" class="intro-img">
+      <img src="https://s3.amazonaws.com/lemonade-stand/sugar.svg" class="intro-img">
+      <img src="https://s3.amazonaws.com/lemonade-stand/ice.svg" class="intro-img">
+      <img src="https://s3.amazonaws.com/lemonade-stand/cups.svg" class="intro-img">
+    </div>
+  </div>
+
+  <div id="intro2">
+    <div class="row-thin">
+      <p>When you have enough ingredients, click on the pitcher to make more lemonade.</p>
+      <img src="https://s3.amazonaws.com/lemonade-stand/pitcher.svg" class="intro-img">
+    </div>
+    <div class="row-thin">
+      <p>When you're ready, click "start day" to sell your lemonade.</p>
+      <p>Make sure you have enough cups!</p>
     </div>
   </div>
 
   <div id="play-screen">
     <div id="play">
       <div class="row">
+        <div id="game-name">
+          <h1>lemonade</h1>
+        </div>
+      </div>
+      <div class="row-thin">
         <div id="info">
-          Weather
+          <div id="day-num">
+          Day 0
+          </div>
+          <div id="message">
+          </div>
         </div>
       </div>
       <div class="row">
@@ -46,7 +98,7 @@
           0
         </div>
       </div>
-      <div class="row">
+      <div class="row-thin">
         <div class="items clickable buyable" id="lemons">
           0
         </div>

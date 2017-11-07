@@ -49,15 +49,21 @@ $(document).ready(function() {
   var screen;
   var price = 2;
   var message = "Oh, hello.";
+  var day = 0;
 
   $( "body" ).on("click", "#start-button", function() {
-    screen = $( "#introduction-screen" ).html()
+    $( "#introduction" ).html( $( "#intro1").html() );
+    screen = $( "#introduction-screen" ).html();
     drawGame();
   });
 
-  $( "body" ).on("click", "#begin-button", function() {
-    screen = $( "#play-screen" ).html()
-    drawGame();
+  $( "body" ).on("click", "#next-button", function() {
+    if ( $( "#introduction" ).html() == $( "#intro1").html() ) {
+      $( "#introduction" ).html( $( "#intro2").html() );
+    } else if ( $( "#introduction" ).html() == $( "#intro2").html() ) {
+      screen = $( "#play-screen" ).html()
+      drawGame();
+    };    
   });
 
   $( "body" ).on("click", ".buyable", function(e) {
@@ -89,7 +95,16 @@ $(document).ready(function() {
   };
 
   function drawInfo() {
-    $( "#info" ).html(message);
+    drawMessage();
+    drawDay();
+  }
+
+  function drawMessage() {
+    $( "#message" ).html(message);
+  }
+
+  function drawDay() {
+    $( "#day-num" ).html( "Day " + day);
   }
 
   function drawItem(item) {
@@ -129,8 +144,11 @@ $(document).ready(function() {
       };
       inventory["pitchers"]++;
       drawItems();
+      message = "Great! You made a pitcher of lemonade."
+      drawInfo();
     } else {
-      console.log("Not enough: ", errors);
+      message = ("Oops! You don't have enough " + errors.slice(0, errors.length).join(' or ') + " to make lemonade.");
+      drawInfo();
     };
   };
 
@@ -138,19 +156,21 @@ $(document).ready(function() {
     var customers = Math.floor(Math.random() * (10));
     customers = Math.min(customers, inventory["cups"], inventory["pitchers"]*10 );
     animateDay(customers);
-    sellLemonade(customers);
   };
 
   function sellLemonade(customers) {
     inventory["cups"] -= customers;
     inventory["pitchers"] -= Math.ceil(customers/10);
     inventory["money"] += customers * price;
-    $( "#info" ).html("Day in progress")
     drawItems();
   };
 
   function animateDay(customers) {
     var hour = 0;
+    message = "Day in progress"
+    day ++;
+    drawInfo();
+    drawInfo();
     function intervalFired() {
       hour++;
       if (hour <= 8) {
@@ -160,8 +180,9 @@ $(document).ready(function() {
       } else {
         message = "Day is done. You sold " + customers + " cups of lemonade.";
         $( "#info" ).css("background-color", "yellow");
+        sellLemonade(customers);
         drawInfo();
-        clearInterval(interval);
+        clearInterval(interval);        
       }
     }
     var interval = setInterval(intervalFired, 300);

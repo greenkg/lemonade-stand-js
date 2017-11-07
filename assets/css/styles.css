@@ -1,18 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Satisfy|Gloria+Hallelujah');
+
+body {
+  font-family: "Gloria Hallelujah", sans-serif;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background-color: red;
+  color: white;
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+}
+
 #game {
   width: 400px;
   height: 600px;
-  background-color: honeydew;
-}
-
-#start-screen, #introduction-screen, #play-screen {
-  display: none;
-}
-
-#start, #introduction {
+  background-color: skyblue;
   text-align: center;
 }
 
-#start-button, #begin-button {
+#start-screen, #introduction-screen, #intro1, #intro2, #play-screen {
+  display: none;
+}
+
+#splash, #introduction {
+  height: 440px;
+}
+
+#introduction {
+  font-size: 120%;
+}
+
+.intro-img {
+  width: 70px;
+  height: 70px;
+}
+
+#start-button, #next-button {
   cursor: pointer;
 }
 
@@ -22,10 +52,14 @@
 }
 
 #info {
+  display: flex;
+  flex-direction: column;
   width: 250px;
   height: 250px;
   border-radius: 150px;
   background-color: rgba(255, 212, 42, 1);
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
 }
 
 #play {
@@ -33,7 +67,16 @@
 }
 
 .row {
-  padding-top: 40px;
+  padding-top: 30px;
+}
+
+.row-thin {
+  padding-top: 10px;
+}
+
+#game-name {
+  font-family: "Satisfy", serif;
+  color: white;
 }
 
 #info {
@@ -48,7 +91,6 @@
 .items {
   height: 35px;
   width: 70px;
-  border-radius: 35px;
   display: inline-block;
   margin: 0px 10px 0px 10px;
   padding-top: 35px;
@@ -56,24 +98,42 @@
 
 #money {
   background-color: green;
+  background: url(https://s3.amazonaws.com/lemonade-stand/money.svg);
+  background-size: 70px 70px;
+  background-repeat: no-repeat;
 }
 
 #pitchers {
   background-color: orange;
+  background: url(https://s3.amazonaws.com/lemonade-stand/pitcher.svg);
+  background-size: 70px 70px;
+  background-repeat: no-repeat;
 }
 
 #lemons {
   background-color: yellow;
+  background: url(https://s3.amazonaws.com/lemonade-stand/lemon-item.svg);
+  background-size: 70px 70px;
+  background-repeat: no-repeat;
 }
 
 #sugar {
   background-color: lightgray;
+  background: url(https://s3.amazonaws.com/lemonade-stand/sugar.svg);
+  background-size: 70px 70px;
+  background-repeat: no-repeat;
 }
 
 #ice {
   background-color: lightblue;
+  background: url(https://s3.amazonaws.com/lemonade-stand/ice.svg);
+  background-size: 70px 70px;
+  background-repeat: no-repeat;
 }
 
 #cups {
   background-color: red;
+  background: url(https://s3.amazonaws.com/lemonade-stand/cups.svg);
+  background-size: 70px 70px;
+  background-repeat: no-repeat;
 }

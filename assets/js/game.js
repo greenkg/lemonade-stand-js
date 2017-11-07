@@ -79,6 +79,31 @@ $(document).ready(function() {
     startDay();
   });
 
+  // Open and close the options menu
+
+  $( "body" ).on("click", "#options-open", function(e) {
+    $( "#options-screen" ).fadeIn(300, function() {
+      $( ".option" ).fadeIn({queue: false, duration: 600});
+      $( "#change-recipe" ).animate({left: '-=100px', top: '+=50px'}, 300);
+      $( "#buy-advertising" ).animate({left: '-=0px', top: '+=100px'}, 300);
+      $( "#set-price" ).animate({left: '+=100px', top: '+=50px'}, 300);
+    });
+  });
+
+  $( "body" ).on("click", "#options-close", function(e) {
+    $( "#options-screen" ).fadeOut();
+    $( ".option" ).fadeOut( function() {
+      $( ".option" ).css( {top: 250, left: 150} );
+    })
+  });
+
+  // Open the individual options
+
+  $( "body" ).on("click", "#set-price", function() {
+    $( "#set-price" ).animate({left: '-=200px', top: '-=250px', height: "300px", width: "300px", borderRadius: "150px"}, 300);
+
+  });
+
   function startGame(money, pitchers, lemons, sugar, ice, cups) {
     screen = $( "#start-screen" ).html()
     drawGame();
@@ -120,10 +145,16 @@ $(document).ready(function() {
   };
 
   function buyItem(item, qty, price) {
-    inventory[item] += qty;
-    inventory["money"] -= qty * price;
-    drawItem(item);
-    drawItem("money");
+    if ( inventory["money"] >= price ) {
+      inventory[item] += qty;
+      inventory["money"] -= price;
+      drawItem(item);
+      drawItem("money");
+      message = "You bought " + qty + " " + item + " for $" + ( price ) + "."
+    } else {
+      message = "Oops! You don't have enough money to buy that."
+    }
+    drawInfo();    
   };
 
   function makeLemonade(recipe) {
@@ -188,6 +219,6 @@ $(document).ready(function() {
     var interval = setInterval(intervalFired, 300);
   };
 
-  startGame(200, 5, 6, 7, 8, 60);
+  startGame(100, 0, 0, 0, 0, 0);
 
 });

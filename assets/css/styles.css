@@ -86,6 +86,11 @@ button {
 
 .clickable {
   cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
 }
 
 .items {
@@ -136,4 +141,59 @@ button {
   background: url(https://s3.amazonaws.com/lemonade-stand/cups.svg);
   background-size: 70px 70px;
   background-repeat: no-repeat;
+}
+
+#options-screen {
+  display: none;
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 400px;
+  height: 600px;
+  background-color: rgba(0, 0, 255, 0.7);
+}
+
+#options-open {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 265px;
+  left: 173px;
+}
+
+#options-close {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 258px;
+  left: 166px;
+}
+
+.option {
+  display: none;
+  position: absolute;
+  border-radius: 50px;
+  top: 250px;
+  left: 150px;
+}
+
+.option-flex {
+  display: flex;
+  align-items: center; /* align vertical */
+  width: 100px;
+  height: 100px;
+  line-height: 100%;
+}
+
+#change-recipe {  
+  background-color: yellow;
+}
+
+#set-price {
+  background-color: orange;
+}
+
+#buy-advertising {
+  background-color: lawngreen;
 }

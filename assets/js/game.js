@@ -46,8 +46,15 @@ $(document).ready(function() {
     "ice": 5
   };
 
+  var displayRecipe = {
+    "lemons": 0,
+    "sugar": 0,
+    "ice": 0
+  }
+
   var screen;
   var price = 2;
+  var marketing = 0;
   var message = "Oh, hello.";
   var day = 0;
 
@@ -99,10 +106,80 @@ $(document).ready(function() {
 
   // Open the individual options
 
-  $( "body" ).on("click", "#set-price", function() {
-    $( "#set-price" ).animate({left: '-=200px', top: '-=250px', height: "300px", width: "300px", borderRadius: "150px"}, 300);
-
+  $( "body" ).on("click", ".option", function(e) {
+    elementId = "#" + $(e.target).parent().attr("id");
+    console.log( elementId );
+    if ( elementId === "#set-price" || elementId === "#buy-advertising" || elementId === "#change-recipe" ) {
+      if ( $( elementId ).hasClass("clicked") === false ) {
+        animateOption(elementId);
+      }
+    }
   });
+
+  $( "body" ).on("click", ".cancel", function(e) {
+      parentElementId = "#" + $(e.target).parents().eq(3).attr("id");
+      e.stopPropagation();
+      animatePriceReverse(parentElementId);
+  });
+
+  $( "body" ).on("click", ".confirm", function(e) {
+      parentElementId = "#" + $(e.target).parents().eq(3).attr("id");
+      e.stopPropagation();
+      animatePriceReverse(parentElementId);
+      confirmChanges(parentElementId);
+  });
+
+  $( "body" ).on("click", ".change-recipe", function(e) {
+    clickedId = $( e.target ).attr("id");
+    changeDisplayRecipe(clickedId)
+  });
+
+  function animateOption(elementId) {
+    var xCoord, yCoord, displayElement
+    if ( elementId === "#set-price" ) {
+      xCoord = "-=172px";
+      yCoord = "-=213px";
+      displayElement = "#price-screen"
+    } else if ( elementId === "#buy-advertising" ) {
+      xCoord = "-=78px";
+      yCoord = "-=265px";
+      displayElement = "#marketing-screen"
+    } else if ( elementId === "#change-recipe" ) {
+      xCoord = "+=26px";
+      yCoord = "-=213px";
+      displayElement = "#recipe-screen"
+      setDisplayRecipe();
+      drawRecipe();
+    }
+
+    $( elementId ).animate( {left: xCoord, top: yCoord, height: "257px", width: "257px", borderRadius: "153px"}, 300);    
+    $( elementId ).addClass("clicked");
+    $( elementId ).children().css( {height: "257px", width: "257px"} ).html( $( displayElement ).html() );
+    $( elementId ).siblings().fadeOut();
+    drawPrice();
+    drawMarketing();
+  };
+
+  function animatePriceReverse(elementId) {
+    var xCoord, yCoord, displayText
+    if ( elementId === "#set-price") {
+      xCoord = "+=172px";
+      yCoord = "+=213px";
+      displayText = "Set price"
+    } else if ( elementId === "#buy-advertising" ) {
+      xCoord = "+=78px";
+      yCoord = "+=265px";
+      displayText = "Set marketing spend";
+    } else if ( elementId === "#change-recipe" ) {
+      xCoord = "-=26px";
+      yCoord = "+=213px";
+      displayText = "Change recipe"
+    }    
+    $( elementId ).animate( {left: xCoord, top: yCoord, height: "100px", width: "100px", borderRadius: "150px"}, 300);
+    $( elementId ).children().empty().css( {height: "100px", width: "100px"} ).html( displayText);
+    $( elementId ).siblings().fadeIn();
+    $( elementId ).removeClass("clicked");
+  };
 
   function startGame(money, pitchers, lemons, sugar, ice, cups) {
     screen = $( "#start-screen" ).html()
@@ -141,6 +218,78 @@ $(document).ready(function() {
     var keys = Object.keys(inventory);
     for (i = 0; i < keys.length; i++) {
       drawItem(keys[i]);
+    };
+  };
+
+  function drawPrice() {
+    $( "#price" ).html("$" + price);
+  };
+
+  function drawMarketing() {
+    $( "#marketing" ).html("$" + marketing);
+  };
+
+  function setDisplayRecipe() {
+    displayRecipe["lemons"] = recipe["lemons"];
+    displayRecipe["sugar"] = recipe["sugar"];
+    displayRecipe["ice"] = recipe["ice"];
+  };
+
+  function changeDisplayRecipe(clickedId) {
+    switch(clickedId) {
+      case "plus-lemons":
+        if ( displayRecipe["lemons"] <=20) {
+          displayRecipe["lemons"]++;
+        }
+        break;
+      case "minus-lemons":
+        if ( displayRecipe["lemons"] > 1) {
+          displayRecipe["lemons"]--;
+        }
+        break;
+      case "plus-sugar":
+        if ( displayRecipe["sugar"] < 20) {
+          displayRecipe["sugar"]++;
+        }
+        break;
+      case "minus-sugar":
+        if ( displayRecipe["sugar"] > 0) {
+          displayRecipe["sugar"]--;
+        }
+        break;
+      case "plus-ice":
+        if ( displayRecipe["ice"] < 20) {
+          displayRecipe["ice"]++;
+        }
+        break;
+      case "minus-ice":
+        if ( displayRecipe["ice"] > 0) {
+          displayRecipe["ice"]--;
+        }
+        break;
+    }
+    drawRecipe();
+  };
+
+  function drawRecipe() {
+    $( "#recipe-lemons" ).html(displayRecipe["lemons"]);
+    $( "#recipe-sugar" ).html(displayRecipe["sugar"]);
+    $( "#recipe-ice" ).html(displayRecipe["ice"]);
+  };
+
+  function saveRecipe() {
+    recipe["lemons"] = displayRecipe["lemons"];
+    recipe["sugar"] = displayRecipe["sugar"];
+    recipe["ice"] = displayRecipe["ice"];
+    drawItems();
+    console.log(recipe);
+  };
+
+  function confirmChanges(clickedId) {
+    switch ( clickedId ) {
+      case "#change-recipe":
+        saveRecipe();
+        break;
     };
   };
 

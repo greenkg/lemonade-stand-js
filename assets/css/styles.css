@@ -16,6 +16,7 @@ button {
   width: 200px;
   height: 40px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 #game {
@@ -25,7 +26,7 @@ button {
   text-align: center;
 }
 
-#start-screen, #introduction-screen, #intro1, #intro2, #play-screen {
+#start-screen, #introduction-screen, #intro1, #intro2, #play-screen, #price-screen, #marketing-screen, #recipe-screen {
   display: none;
 }
 
@@ -54,6 +55,7 @@ button {
 #info {
   display: flex;
   flex-direction: column;
+  margin: auto;
   width: 250px;
   height: 250px;
   border-radius: 150px;
@@ -70,6 +72,10 @@ button {
   padding-top: 30px;
 }
 
+.row-lean {
+  padding-top: 15px;
+}
+
 .row-thin {
   padding-top: 10px;
 }
@@ -77,11 +83,6 @@ button {
 #game-name {
   font-family: "Satisfy", serif;
   color: white;
-}
-
-#info {
-  margin: auto;
-  
 }
 
 .clickable {
@@ -143,6 +144,39 @@ button {
   background-repeat: no-repeat;
 }
 
+.option-img-sm {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  margin: 0px 10px 0px 10px;
+}
+
+.recipe-item {
+  height: 25px;
+  width: 50px;
+  display: inline-block;
+  margin: 0px 7px 0px 7px;
+  padding-top: 25px;
+}
+
+#recipe-lemons {
+  background: url(https://s3.amazonaws.com/lemonade-stand/lemon-item.svg);
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+}
+
+#recipe-sugar {
+  background: url(https://s3.amazonaws.com/lemonade-stand/sugar.svg);
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+}
+
+#recipe-ice {
+  background: url(https://s3.amazonaws.com/lemonade-stand/ice.svg);
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+}
+
 #options-screen {
   display: none;
   content: "";
@@ -156,18 +190,19 @@ button {
 
 #options-open {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  top: 265px;
-  left: 173px;
+  top: 275px;
+  left: 183px;
 }
 
 #options-close {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  top: 258px;
-  left: 166px;
+  top: 268px;
+  left: 176px;
+}
+
+.option-img {
+  width: 50px;
+  height: 50px;
 }
 
 .option {
@@ -180,6 +215,7 @@ button {
 
 .option-flex {
   display: flex;
+  justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
   width: 100px;
   height: 100px;
@@ -187,7 +223,7 @@ button {
 }
 
 #change-recipe {  
-  background-color: yellow;
+  background-color: lemonchiffon;
 }
 
 #set-price {
@@ -196,4 +232,8 @@ button {
 
 #buy-advertising {
   background-color: lawngreen;
+}
+
+#price {
+  font-size: 150%;
 }

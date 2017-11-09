@@ -56,6 +56,7 @@ $(document).ready(function() {
   var price = 2;
   var displayPrice;
   var marketing = 0;
+  var displayMarketing;
   var message = "Oh, hello.";
   var day = 0;
 
@@ -93,7 +94,7 @@ $(document).ready(function() {
     $( "#options-screen" ).fadeIn(300, function() {
       $( ".option" ).fadeIn({queue: false, duration: 600});
       $( "#change-recipe" ).animate({left: '-=100px', top: '+=50px'}, 300);
-      $( "#buy-advertising" ).animate({left: '-=0px', top: '+=100px'}, 300);
+      $( "#set-marketing" ).animate({left: '-=0px', top: '+=100px'}, 300);
       $( "#set-price" ).animate({left: '+=100px', top: '+=50px'}, 300);
     });
   });
@@ -109,7 +110,7 @@ $(document).ready(function() {
 
   $( "body" ).on("click", ".option", function(e) {
     elementId = "#" + $(e.target).parent().attr("id");
-    if ( elementId === "#set-price" || elementId === "#buy-advertising" || elementId === "#change-recipe" ) {
+    if ( elementId === "#set-price" || elementId === "#set-marketing" || elementId === "#change-recipe" ) {
       if ( $( elementId ).hasClass("clicked") === false ) {
         animateOption(elementId);
       }
@@ -136,8 +137,13 @@ $(document).ready(function() {
 
   $( "body" ).on("click", ".change-price", function(e) {
     clickedId = $( e.target ).attr("id");
-    console.log( $( e.target ).attr("id") );
     changeDisplayPrice(clickedId);
+  });
+
+  $( "body" ).on("click", ".change-marketing", function(e) {
+    clickedId = $( e.target ).attr("id");
+    console.log( $( e.target ).attr("id") );
+    changeDisplayMarketing(clickedId);
   });
 
   function animateOption(elementId) {
@@ -148,10 +154,12 @@ $(document).ready(function() {
       setDisplayPrice();
       drawPrice();
       displayElement = "#price-screen"
-    } else if ( elementId === "#buy-advertising" ) {
+    } else if ( elementId === "#set-marketing" ) {
       xCoord = "-=78px";
       yCoord = "-=265px";
-      displayElement = "#marketing-screen"
+      displayElement = "#marketing-screen";
+      setDisplayMarketing();
+      drawMarketing();
     } else if ( elementId === "#change-recipe" ) {
       xCoord = "+=26px";
       yCoord = "-=213px";
@@ -173,7 +181,7 @@ $(document).ready(function() {
       xCoord = "+=172px";
       yCoord = "+=213px";
       displayText = "Set price"
-    } else if ( elementId === "#buy-advertising" ) {
+    } else if ( elementId === "#set-marketing" ) {
       xCoord = "+=78px";
       yCoord = "+=265px";
       displayText = "Set marketing spend";
@@ -229,7 +237,6 @@ $(document).ready(function() {
   };
 
   function drawPrice() {
-    $( "#price" ).html( "$" + price );
     $( "#display-price").html( "$" + displayPrice );
   };
 
@@ -258,7 +265,31 @@ $(document).ready(function() {
   };
 
   function drawMarketing() {
-    $( "#marketing" ).html("$" + marketing);
+    $( "#display-marketing" ).html("$" + displayMarketing);
+  };
+
+  function setDisplayMarketing() {
+    displayMarketing = marketing;
+  };
+
+  function changeDisplayMarketing(clickedId) {
+    switch( clickedId ) {
+      case "plus-marketing":
+        if ( displayMarketing < 20 ) {
+          displayMarketing++;
+        }
+        break;
+      case "minus-marketing":
+        if ( displayMarketing > 0 ) {
+          displayMarketing--;
+        }
+        break;
+    };
+    drawMarketing();
+  };
+
+  function saveMarketing() {
+    marketing = displayMarketing;
   };
 
   function setDisplayRecipe() {
@@ -322,6 +353,10 @@ $(document).ready(function() {
         break;
       case "#set-price":
         savePrice();
+        break;
+      case "#set-marketing":
+        console.log("Saving marketing. . . ");
+        saveMarketing();
         break;
     };
   };

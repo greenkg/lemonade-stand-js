@@ -559,16 +559,14 @@ $(document).ready(function() {
     reputationTracker += customers * getRecipeScore();
     console.log("reputation tracker is at: " + reputationTracker);
     var newRepPoints = Math.floor(reputationTracker / 10);
+    var thisMessage = "";
     if ( newRepPoints > reputationPoints ) {
-      reputationPoints = newRepPoints;
-      $( "#reputation" ).html(reputationPoints);
-      return " Your reputation increased!";
-    } else {
-      reputationPoints = newRepPoints;
-      $( "#reputation" ).html(reputationPoints);
-      return "";
+      message = " Your reputation increased!";
     }
-    
+    reputationPoints = newRepPoints;
+    customerBase = reputationPoints + 10;
+    $( "#reputation" ).html(reputationPoints);
+    return thisMessage;
   };
 
   function getRecipeScore() {

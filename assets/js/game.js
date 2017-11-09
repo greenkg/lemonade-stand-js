@@ -54,6 +54,7 @@ $(document).ready(function() {
 
   var screen;
   var price = 2;
+  var displayPrice;
   var marketing = 0;
   var message = "Oh, hello.";
   var day = 0;
@@ -108,7 +109,6 @@ $(document).ready(function() {
 
   $( "body" ).on("click", ".option", function(e) {
     elementId = "#" + $(e.target).parent().attr("id");
-    console.log( elementId );
     if ( elementId === "#set-price" || elementId === "#buy-advertising" || elementId === "#change-recipe" ) {
       if ( $( elementId ).hasClass("clicked") === false ) {
         animateOption(elementId);
@@ -134,11 +134,19 @@ $(document).ready(function() {
     changeDisplayRecipe(clickedId)
   });
 
+  $( "body" ).on("click", ".change-price", function(e) {
+    clickedId = $( e.target ).attr("id");
+    console.log( $( e.target ).attr("id") );
+    changeDisplayPrice(clickedId);
+  });
+
   function animateOption(elementId) {
     var xCoord, yCoord, displayElement
     if ( elementId === "#set-price" ) {
       xCoord = "-=172px";
       yCoord = "-=213px";
+      setDisplayPrice();
+      drawPrice();
       displayElement = "#price-screen"
     } else if ( elementId === "#buy-advertising" ) {
       xCoord = "-=78px";
@@ -156,7 +164,6 @@ $(document).ready(function() {
     $( elementId ).addClass("clicked");
     $( elementId ).children().css( {height: "257px", width: "257px"} ).html( $( displayElement ).html() );
     $( elementId ).siblings().fadeOut();
-    drawPrice();
     drawMarketing();
   };
 
@@ -216,13 +223,38 @@ $(document).ready(function() {
 
   function drawItems() {
     var keys = Object.keys(inventory);
-    for (i = 0; i < keys.length; i++) {
+    for ( i = 0; i < keys.length; i++ ) {
       drawItem(keys[i]);
     };
   };
 
   function drawPrice() {
-    $( "#price" ).html("$" + price);
+    $( "#price" ).html( "$" + price );
+    $( "#display-price").html( "$" + displayPrice );
+  };
+
+  function setDisplayPrice() {
+    displayPrice = price;
+  };
+
+  function changeDisplayPrice(clickedId) {
+    switch( clickedId ) {
+      case "plus-price":
+        if ( displayPrice < 20 ) {
+          displayPrice++;
+        }
+        break;
+      case "minus-price":
+        if ( displayPrice > 0 ) {
+          displayPrice--;
+        }
+        break;
+    };
+    drawPrice();
+  };
+
+  function savePrice() {
+    price = displayPrice;
   };
 
   function drawMarketing() {
@@ -238,7 +270,7 @@ $(document).ready(function() {
   function changeDisplayRecipe(clickedId) {
     switch(clickedId) {
       case "plus-lemons":
-        if ( displayRecipe["lemons"] <=20) {
+        if ( displayRecipe["lemons"] < 20) {
           displayRecipe["lemons"]++;
         }
         break;
@@ -281,14 +313,15 @@ $(document).ready(function() {
     recipe["lemons"] = displayRecipe["lemons"];
     recipe["sugar"] = displayRecipe["sugar"];
     recipe["ice"] = displayRecipe["ice"];
-    drawItems();
-    console.log(recipe);
   };
 
   function confirmChanges(clickedId) {
     switch ( clickedId ) {
       case "#change-recipe":
         saveRecipe();
+        break;
+      case "#set-price":
+        savePrice();
         break;
     };
   };

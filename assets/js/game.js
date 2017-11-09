@@ -91,19 +91,11 @@ $(document).ready(function() {
   // Open and close the options menu
 
   $( "body" ).on("click", "#options-open", function(e) {
-    $( "#options-screen" ).fadeIn(300, function() {
-      $( ".option" ).fadeIn({queue: false, duration: 600});
-      $( "#change-recipe" ).animate({left: '-=100px', top: '+=50px'}, 300);
-      $( "#set-marketing" ).animate({left: '-=0px', top: '+=100px'}, 300);
-      $( "#set-price" ).animate({left: '+=100px', top: '+=50px'}, 300);
-    });
+    openOptionsMenu();
   });
 
   $( "body" ).on("click", "#options-close", function(e) {
-    $( "#options-screen" ).fadeOut();
-    $( ".option" ).fadeOut( function() {
-      $( ".option" ).css( {top: 250, left: 150} );
-    })
+    closeOptionsMenu();
   });
 
   // Open the individual options
@@ -117,6 +109,8 @@ $(document).ready(function() {
     }
   });
 
+  // Set behaviors for cancel and confirm buttons
+
   $( "body" ).on("click", ".cancel", function(e) {
       parentElementId = "#" + $(e.target).parents().eq(3).attr("id");
       e.stopPropagation();
@@ -128,7 +122,10 @@ $(document).ready(function() {
       e.stopPropagation();
       animatePriceReverse(parentElementId);
       confirmChanges(parentElementId);
+      closeOptionsMenu();
   });
+
+  // Update attributes based on changes in options menus
 
   $( "body" ).on("click", ".change-recipe", function(e) {
     clickedId = $( e.target ).attr("id");
@@ -145,6 +142,22 @@ $(document).ready(function() {
     console.log( $( e.target ).attr("id") );
     changeDisplayMarketing(clickedId);
   });
+
+  function openOptionsMenu() {
+    $( "#options-screen" ).fadeIn(300, function() {
+      $( ".option" ).fadeIn({queue: false, duration: 600});
+      $( "#change-recipe" ).animate({left: '-=100px', top: '+=50px'}, 300);
+      $( "#set-marketing" ).animate({left: '-=0px', top: '+=100px'}, 300);
+      $( "#set-price" ).animate({left: '+=100px', top: '+=50px'}, 300);
+    });
+  };
+
+  function closeOptionsMenu() {
+    $( "#options-screen" ).fadeOut();
+    $( ".option" ).fadeOut( function() {
+      $( ".option" ).css( {top: 250, left: 150} );
+    });
+  };
 
   function animateOption(elementId) {
     var xCoord, yCoord, displayElement
@@ -292,6 +305,10 @@ $(document).ready(function() {
     marketing = displayMarketing;
   };
 
+  function payMarketing() {
+    inventory["money"] -= marketing;
+  };
+
   function setDisplayRecipe() {
     displayRecipe["lemons"] = recipe["lemons"];
     displayRecipe["sugar"] = recipe["sugar"];
@@ -418,7 +435,6 @@ $(document).ready(function() {
     message = "Day in progress"
     day ++;
     drawInfo();
-    drawInfo();
     function intervalFired() {
       hour++;
       if (hour <= 8) {
@@ -429,7 +445,9 @@ $(document).ready(function() {
         message = "Day is done. You sold " + customers + " cups of lemonade.";
         $( "#info" ).css("background-color", "yellow");
         sellLemonade(customers);
+        payMarketing();
         drawInfo();
+        drawItems();
         clearInterval(interval);        
       }
     }

@@ -243,3 +243,7 @@ button {
 #price {
   font-size: 150%;
 }
+
+#message {
+  height: 72px;
+}

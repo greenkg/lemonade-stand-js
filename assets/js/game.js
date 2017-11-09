@@ -31,12 +31,12 @@ $(document).ready(function() {
     "midnightblue"
   ];
 
-  var WEATHER = [
-    "sunny",
-    "partly-cloudy",
-    "cloudy",
-    "rainy"
-  ];
+  var WEATHER = {
+    "sunny": 1.2,
+    "partly-cloudy": 1,
+    "cloudy": 0.8,
+    "rainy": 0.2
+  };
 
   var inventory = {
     "money": 0,
@@ -48,9 +48,9 @@ $(document).ready(function() {
   };
 
   var recipe = {
-    "lemons": 6,
-    "sugar": 1,
-    "ice": 5
+    "lemons": 3,
+    "sugar": 2,
+    "ice": 3
   };
 
   var displayRecipe = {
@@ -66,8 +66,11 @@ $(document).ready(function() {
   var displayMarketing;
   var message = "Oh, hello.";
   var day = 0;
+  var customerBase = 10;
   var reputationTracker = 0;
   var reputationPoints = 0;
+  var forecast = 0;
+  var weather = 0;
 
   $( "body" ).on("click", "#start-button", function() {
     $( "#introduction" ).html( $( "#intro1").html() );
@@ -342,7 +345,7 @@ $(document).ready(function() {
         }
         break;
       case "plus-sugar":
-        if ( displayRecipe["sugar"] < 20) {
+        if ( displayRecipe["sugar"] < 10) {
           displayRecipe["sugar"]++;
         }
         break;
@@ -352,7 +355,7 @@ $(document).ready(function() {
         }
         break;
       case "plus-ice":
-        if ( displayRecipe["ice"] < 20) {
+        if ( displayRecipe["ice"] < 10) {
           displayRecipe["ice"]++;
         }
         break;
@@ -431,6 +434,48 @@ $(document).ready(function() {
     };
   };
 
+  function forecastWeather() {
+    forecast = Math.floor(Math.random() * 10);
+    console.log("Random weather number is " + forecast);
+    drawWeather(forecast);
+  };
+
+  function getActualWeather() {
+    console.log("Are you looking in here?");
+    var adjWeather = Math.floor(Math.random()*3);
+    adjWeather *= Math.floor(Math.random()*2) == 1 ? 1 : -1; // this will create a negative result in 50% of cases
+    if ( forecast + adjWeather > 9 ) {
+      console.log("Are you looking in here?");
+      weather = 9;
+    } else if ( forecast - adjWeather < 0 ) {
+      weather = 0;
+    } else {
+      weather = forecast + adjWeather;
+    };
+    drawWeather(weather);
+  };
+
+  function drawWeather(weatherInput) {
+    console.log("Weather is " + weatherInput);
+    var weatherImg;
+    switch( true ) {
+      case ( weatherInput < 3 ):
+        weatherImg = "sunny";
+        break;
+      case ( weatherInput >= 3 && forecast < 6 ):
+        weatherImg = "partly-cloudy";
+        break;
+      case ( weatherInput >= 6 && forecast < 8 ):
+        weatherImg = "cloudy";
+        break;
+      case ( weatherInput >= 8 && forecast < 10):
+        weatherImg = "rainy";
+        break;
+    };
+    weatherImg = '<img src="https://s3.amazonaws.com/lemonade-stand/' + weatherImg + '.svg" class="option-img">'
+    $( "#weather" ).html(weatherImg);
+  };
+
   function startDay() {
     var customers = Math.floor(Math.random() * (10));
     customers = Math.min(customers, inventory["cups"], inventory["pitchers"]*10 );
@@ -447,6 +492,7 @@ $(document).ready(function() {
   function animateDay(customers) {
     var hour = 0;
     message = "Day in progress"
+    getActualWeather();
     day ++;
     drawInfo();
     function intervalFired() {
@@ -457,12 +503,14 @@ $(document).ready(function() {
         drawInfo();
       } else {
         message = "Day is done. You sold " + customers + " cups of lemonade.";
-        $( "#info" ).css("background-color", "yellow");
+        $( "#info" ).css("background-color", "rgba(250, 240, 230, 1)" );
         sellLemonade(customers);
+        getRecipeScore();
         payMarketing();
         drawInfo();
         drawItems();
-        clearInterval(interval);        
+        clearInterval(interval);
+        forecastWeather();     
       }
     }
     var interval = setInterval(intervalFired, 300);
@@ -471,6 +519,47 @@ $(document).ready(function() {
   function updateReputation() {
     var rep = Math.floor(reputationTracker / 10);
     console.log(rep);
+  };
+
+  function getRecipeScore() {
+    //recipe score is based on quantity of lemons, quantity of ice, and ratio of sugar to lemons
+    //lemon score
+    var lemonScore;
+    var x = recipe["lemons"];
+    if ( x <= 0 || x >= 20 ) {
+      lemonScore = -1;
+    } else {
+      lemonScore = -8.9922609E-05*(x**4) + 0.00613695169*(x**3) - 0.1411411871*(x**2) + (1.1345878258*x) - 1.9233230134;
+    }    
+    lemonScore = Math.round(lemonScore * 10) / 10;
+    console.log("Lemon score is " + lemonScore);
+
+    //sugar score
+    var sugarScore;
+    var y = recipe["sugar"] / recipe["lemons"];
+    if ( y <= 0 || y >= 1 ) {
+      sugarScore = -1;
+    } else {
+      sugarScore = 0.0043069602*(y**4) - 0.100287569*(y**3) + 0.7916398999*(y**2) - (2.40001202868*y) + 1.1563859055;
+    }  
+    sugarScore = Math.round(sugarScore * 10) / 10;
+    console.log("Sugar score is " + sugarScore);
+
+    //ice score
+    var iceScore;
+    var z = recipe["ice"];
+    if ( z <= 0 || z >=10 ) {
+      iceScore = -1;
+    } else {
+      iceScore = -0.08*(z**2) + 0.71*z - 0.56;
+    }
+    iceScore = Math.round(iceScore * 10) / 10;
+    console.log("Ice score is " + iceScore);
+
+    //compute aggregate score
+    var recipeScore = Math.round( ((lemonScore * 0.4) + (sugarScore * 0.4) + (iceScore * 0.2)) * 10 ) / 10;
+    console.log("Total score is " + recipeScore);
+    return recipeScore;
   };
 
   startGame(100, 0, 0, 0, 0, 0);

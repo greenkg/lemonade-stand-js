@@ -458,13 +458,14 @@ $(document).ready(function() {
       case ( weatherInput < 3 ):
         weatherImg = "sunny";
         break;
-      case ( weatherInput >= 3 && forecast < 6 ):
+      case ( weatherInput >= 3 && weatherInput < 6 ):
         weatherImg = "partly-cloudy";
         break;
-      case ( weatherInput >= 6 && forecast < 8 ):
+      case ( weatherInput >= 6 && weatherInput < 8 ):
         weatherImg = "cloudy";
+        console.log("It's cloudy!");
         break;
-      case ( weatherInput >= 8 && forecast < 10):
+      case ( weatherInput >= 8 && weatherInput < 10):
         weatherImg = "rainy";
         break;
     };
@@ -541,10 +542,9 @@ $(document).ready(function() {
         $( "#info" ).css("background-color", DAYPROGRESS[hour]);
         drawInfo();
       } else {
-        message = "Day is done. You sold " + customers + " cups of lemonade.";
+        message = "You sold " + customers + " cups of lemonade." + updateReputation(customers);
         $( "#info" ).css("background-color", "rgba(250, 240, 230, 1)" );
         sellLemonade(customers);
-        getRecipeScore();
         payMarketing();
         drawInfo();
         drawItems();
@@ -555,9 +555,20 @@ $(document).ready(function() {
     var interval = setInterval(intervalFired, 300);
   };
 
-  function updateReputation() {
-    var rep = Math.floor(reputationTracker / 10);
-    console.log(rep);
+  function updateReputation(customers) {
+    reputationTracker += customers * getRecipeScore();
+    console.log("reputation tracker is at: " + reputationTracker);
+    var newRepPoints = Math.floor(reputationTracker / 10);
+    if ( newRepPoints > reputationPoints ) {
+      reputationPoints = newRepPoints;
+      $( "#reputation" ).html(reputationPoints);
+      return " Your reputation increased!";
+    } else {
+      reputationPoints = newRepPoints;
+      $( "#reputation" ).html(reputationPoints);
+      return "";
+    }
+    
   };
 
   function getRecipeScore() {

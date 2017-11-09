@@ -151,7 +151,6 @@ $(document).ready(function() {
 
   $( "body" ).on("click", ".change-marketing", function(e) {
     clickedId = $( e.target ).attr("id");
-    console.log( $( e.target ).attr("id") );
     changeDisplayMarketing(clickedId);
   });
 
@@ -389,7 +388,6 @@ $(document).ready(function() {
         savePrice();
         break;
       case "#set-marketing":
-        console.log("Saving marketing. . . ");
         saveMarketing();
         break;
     };
@@ -441,11 +439,9 @@ $(document).ready(function() {
   };
 
   function getActualWeather() {
-    console.log("Are you looking in here?");
     var adjWeather = Math.floor(Math.random()*3);
     adjWeather *= Math.floor(Math.random()*2) == 1 ? 1 : -1; // this will create a negative result in 50% of cases
     if ( forecast + adjWeather > 9 ) {
-      console.log("Are you looking in here?");
       weather = 9;
     } else if ( forecast - adjWeather < 0 ) {
       weather = 0;
@@ -476,9 +472,53 @@ $(document).ready(function() {
     $( "#weather" ).html(weatherImg);
   };
 
-  function startDay() {
-    var customers = Math.floor(Math.random() * (10));
+  function getCustomers() {
+    //get today's potential shoppers:
+    var customers = Math.floor(Math.random() * (customerBase));
+    console.log("Total potential shoppers: " + customers);
+    //adjust shoppers based on price curve:
+    customers = priceAdjust(customers);
+    console.log("Price adjusted potential shoppers: " + customers);
+    //adjust remaining shoppers based on weather:
+    customers = weatherAdjust(customers);
+    console.log("Weather adjusted potential shoppers: " + customers);
+    //limit customers to lower of customers, cups, or lemonade
     customers = Math.min(customers, inventory["cups"], inventory["pitchers"]*10 );
+    console.log("Final shoppers: " + Math.round(customers));
+    return Math.round(customers);
+  };
+
+  function priceAdjust(customers) {
+    var multiplier = -0.175 + (reputationPoints * .005);
+    var constant = 1.2 + (reputationPoints * .005);
+    var adjustment = -0.025*(price**2) + (multiplier*price) + constant;
+    adjustment = Math.max(0, adjustment);
+    var adjustedCustomers = customers * adjustment;
+    return adjustedCustomers;
+  };
+
+  function weatherAdjust(customers) {
+    var customers = customers;
+    switch( true ) {
+      case ( weather < 3 ):
+        customers *= WEATHER["sunny"];
+        break;
+      case ( weather >= 3 && forecast < 6 ):
+        customers *= WEATHER["partly-cloudy"];
+        break;
+      case ( weather >= 6 && forecast < 8 ):
+        customers *= WEATHER["cloudy"];
+        break;
+      case ( weather >= 8 && forecast < 10):
+        customers *= WEATHER["rainy"];
+        break;
+    };
+    return customers;
+  };
+
+  function startDay() {
+    getActualWeather();
+    var customers = getCustomers();
     animateDay(customers);
   };
 
@@ -492,7 +532,6 @@ $(document).ready(function() {
   function animateDay(customers) {
     var hour = 0;
     message = "Day in progress"
-    getActualWeather();
     day ++;
     drawInfo();
     function intervalFired() {

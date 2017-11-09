@@ -81,16 +81,17 @@
           <h1>lemonade</h1>
         </div>
       </div>
-      <div class="row-thin">
-        <div id="info">
-          <div id="day-num">
-          Day 0
-          </div>
-          <div id="message">
-          </div>
-          <div class="clickable" id="options-open">
-            <img src="https://s3.amazonaws.com/lemonade-stand/options-green.svg" class="option-img">
-          </div>
+      <div id="info">
+        <div class="row-thin" id="weather-forecast">
+          <img src="https://s3.amazonaws.com/lemonade-stand/rainy.svg" class="option-img">
+        </div>
+        <div class="row-thin" id="day-num">
+        Day 0
+        </div>
+        <div class="row-thin" id="message">
+        </div>
+        <div class="row-thin clickable" id="options-open">
+          <img src="https://s3.amazonaws.com/lemonade-stand/options-green.svg" class="option-img">
         </div>
       </div>
       <div class="row">
@@ -98,6 +99,9 @@
           100
         </div>
         <div class="items clickable" id="pitchers">
+          0
+        </div>
+        <div class="items" id="reputation">
           0
         </div>
       </div>
@@ -200,6 +204,23 @@
       </div>
       <div class="row-thin">
         <img src="https://s3.amazonaws.com/lemonade-stand/confirm.svg" class="confirm option-img">
+        <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
+      </div>
+    </div>
+  </div>
+
+  <div id="recipe-error">
+    <div id="recipe-error-sub">
+      <div class="row-thin">
+        Oops!
+      </div>
+      <div class="row-thin">
+        You can't change your recipe when you have already made lemonade.
+      </div>
+      <div class="row-thin">
+        Start the day to sell the lemonade on hand, then change your recipe first thing tomorrow.
+      </div>
+      <div class="row-thin">
         <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
       </div>
     </div>

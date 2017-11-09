@@ -20,15 +20,22 @@ $(document).ready(function() {
   };
 
   var DAYPROGRESS = [
-    "floralwhite",
-    "lemonchiffon",
+    "ghostwhite",
+    "gainsboro",
     "lightpink",
     "lightcyan",
     "lavender",
-    "lightblue",
-    "lightskyblue",
-    "lightseagreen",
-    "lightslategray"
+    "mediumturquoise",
+    "slateblue",
+    "mediumblue",
+    "midnightblue"
+  ];
+
+  var WEATHER = [
+    "sunny",
+    "partly-cloudy",
+    "cloudy",
+    "rainy"
   ];
 
   var inventory = {
@@ -59,6 +66,8 @@ $(document).ready(function() {
   var displayMarketing;
   var message = "Oh, hello.";
   var day = 0;
+  var reputationTracker = 0;
+  var reputationPoints = 0;
 
   $( "body" ).on("click", "#start-button", function() {
     $( "#introduction" ).html( $( "#intro1").html() );
@@ -176,7 +185,12 @@ $(document).ready(function() {
     } else if ( elementId === "#change-recipe" ) {
       xCoord = "+=26px";
       yCoord = "-=213px";
-      displayElement = "#recipe-screen"
+      if ( inventory["pitchers"] > 0 ) {
+        displayElement = "#recipe-error";
+      } else {
+        displayElement = "#recipe-screen";
+      };
+      
       setDisplayRecipe();
       drawRecipe();
     }
@@ -452,6 +466,11 @@ $(document).ready(function() {
       }
     }
     var interval = setInterval(intervalFired, 300);
+  };
+
+  function updateReputation() {
+    var rep = Math.floor(reputationTracker / 10);
+    console.log(rep);
   };
 
   startGame(100, 0, 0, 0, 0, 0);

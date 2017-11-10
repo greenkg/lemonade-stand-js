@@ -60,11 +60,11 @@ $(document).ready(function() {
   }
 
   var screen;
-  var price = 2;
+  var price = 1;
   var displayPrice;
   var marketing = 0;
   var displayMarketing;
-  var message = "Oh, hello.";
+  var message = "Make sure you have lemonade and cups on hand before you start the day.";
   var day = 0;
   var customerBase = 10;
   var reputationTracker = 0;
@@ -78,10 +78,17 @@ $(document).ready(function() {
     drawGame();
   });
 
+  $( "body" ).on("click", "#skip-intro", function() {
+    screen = $( "#play-screen" ).html()
+    drawGame();
+  });
+
   $( "body" ).on("click", "#next-button", function() {
     if ( $( "#introduction" ).html() == $( "#intro1").html() ) {
       $( "#introduction" ).html( $( "#intro2").html() );
     } else if ( $( "#introduction" ).html() == $( "#intro2").html() ) {
+      $( "#introduction" ).html( $( "#intro3").html() );
+    } else if ( $( "#introduction" ).html() == $( "#intro3").html() ) {
       screen = $( "#play-screen" ).html()
       drawGame();
     };    
@@ -155,38 +162,39 @@ $(document).ready(function() {
   });
 
   function openOptionsMenu() {
+    $( "#game" ).append( $( "#options-box").html() );
     $( "#options-screen" ).fadeIn(300, function() {
       $( ".option" ).fadeIn({queue: false, duration: 600});
-      $( "#change-recipe" ).animate({left: '-=100px', top: '+=50px'}, 300);
-      $( "#set-marketing" ).animate({left: '-=0px', top: '+=100px'}, 300);
-      $( "#set-price" ).animate({left: '+=100px', top: '+=50px'}, 300);
+      $( "#change-recipe" ).animate({left: '-=22vh', top: '+=10vh'}, 300);
+      $( "#set-marketing" ).animate({left: '-=0vh', top: '+=15vh'}, 300);
+      $( "#set-price" ).animate({left: '+=22vh', top: '+=10vh'}, 300);
     });
   };
 
   function closeOptionsMenu() {
     $( "#options-screen" ).fadeOut();
     $( ".option" ).fadeOut( function() {
-      $( ".option" ).css( {top: 250, left: 150} );
+      $( ".option" ).css( {top: "50vh", left: "25vh"} );
     });
   };
 
   function animateOption(elementId) {
     var xCoord, yCoord, displayElement
     if ( elementId === "#set-price" ) {
-      xCoord = "-=172px";
-      yCoord = "-=213px";
+      xCoord = "-=38vh";
+      yCoord = "-=47vh";
       setDisplayPrice();
       drawPrice();
       displayElement = "#price-screen"
     } else if ( elementId === "#set-marketing" ) {
-      xCoord = "-=78px";
-      yCoord = "-=265px";
+      xCoord = "-=16vh";
+      yCoord = "-=52vh";
       displayElement = "#marketing-screen";
       setDisplayMarketing();
       drawMarketing();
     } else if ( elementId === "#change-recipe" ) {
-      xCoord = "+=26px";
-      yCoord = "-=213px";
+      xCoord = "+=6vh";
+      yCoord = "-=48vh";
       if ( inventory["pitchers"] > 0 ) {
         displayElement = "#recipe-error";
       } else {
@@ -197,9 +205,9 @@ $(document).ready(function() {
       drawRecipe();
     }
 
-    $( elementId ).animate( {left: xCoord, top: yCoord, height: "257px", width: "257px", borderRadius: "153px"}, 300);    
+    $( elementId ).animate( {left: xCoord, top: yCoord, height: "52vh", width: "52vh", borderRadius: "27vh"}, 300);    
     $( elementId ).addClass("clicked");
-    $( elementId ).children().css( {height: "257px", width: "257px"} ).html( $( displayElement ).html() );
+    $( elementId ).children().css( {height: "52vh", width: "52vh"} ).html( $( displayElement ).html() );
     $( elementId ).siblings().fadeOut();
     drawMarketing();
   };
@@ -207,20 +215,20 @@ $(document).ready(function() {
   function animatePriceReverse(elementId) {
     var xCoord, yCoord, displayText
     if ( elementId === "#set-price") {
-      xCoord = "+=172px";
-      yCoord = "+=213px";
+      xCoord = "+=38vh";
+      yCoord = "+=47vh";
       displayText = "Set price"
     } else if ( elementId === "#set-marketing" ) {
-      xCoord = "+=78px";
-      yCoord = "+=265px";
+      xCoord = "+=16vh";
+      yCoord = "+=52vh";
       displayText = "Set marketing spend";
     } else if ( elementId === "#change-recipe" ) {
-      xCoord = "-=26px";
-      yCoord = "+=213px";
+      xCoord = "-=6vh";
+      yCoord = "+=48vh";
       displayText = "Change recipe"
     }    
-    $( elementId ).animate( {left: xCoord, top: yCoord, height: "100px", width: "100px", borderRadius: "150px"}, 300);
-    $( elementId ).children().empty().css( {height: "100px", width: "100px"} ).html( displayText);
+    $( elementId ).animate( {left: xCoord, top: yCoord, height: "20vh", width: "20vh", borderRadius: "10vh"}, 300);
+    $( elementId ).children().empty().css( {height: "20vh", width: "20vh"} ).html( displayText);
     $( elementId ).siblings().fadeIn();
     $( elementId ).removeClass("clicked");
   };
@@ -469,8 +477,8 @@ $(document).ready(function() {
         weatherImg = "rainy";
         break;
     };
-    weatherImg = '<img src="https://s3.amazonaws.com/lemonade-stand/' + weatherImg + '.svg" class="option-img">'
-    $( "#weather" ).html(weatherImg);
+    weatherImg = "url(https://s3.amazonaws.com/lemonade-stand/" + weatherImg + ".svg)"
+    $( "#weather" ).css( "background-image", weatherImg );
   };
 
   function getCustomers() {
@@ -525,20 +533,21 @@ $(document).ready(function() {
 
   function sellLemonade(customers) {
     inventory["cups"] -= customers;
-    inventory["pitchers"] -= Math.ceil(customers/10);
+    inventory["pitchers"] = 0;
     inventory["money"] += customers * price;
+    inventory["ice"] = 0;
     drawItems();
   };
 
   function animateDay(customers) {
     var hour = 0;
-    message = "Day in progress"
     day ++;
+    message = "Day " + day + " in progress."    
     drawInfo();
     function intervalFired() {
       hour++;
       if (hour <= 8) {
-        message = "Day in progress. Hour is " + hour;
+        message = "Day " + day + " in progress. Hour is " + hour;
         $( "#info" ).css("background-color", DAYPROGRESS[hour]);
         drawInfo();
       } else {
@@ -549,19 +558,21 @@ $(document).ready(function() {
         drawInfo();
         drawItems();
         clearInterval(interval);
-        forecastWeather();     
+        forecastWeather();
       }
     }
     var interval = setInterval(intervalFired, 300);
   };
 
   function updateReputation(customers) {
+    console.log("Updating reputation....");
     reputationTracker += customers * getRecipeScore();
     console.log("reputation tracker is at: " + reputationTracker);
     var newRepPoints = Math.floor(reputationTracker / 10);
     var thisMessage = "";
     if ( newRepPoints > reputationPoints ) {
-      message = " Your reputation increased!";
+      thisMessage = " Your reputation increased!";
+      console.log("Reputation increase message");
     }
     reputationPoints = newRepPoints;
     customerBase = reputationPoints + 10;
@@ -580,7 +591,6 @@ $(document).ready(function() {
       lemonScore = -8.9922609E-05*(x**4) + 0.00613695169*(x**3) - 0.1411411871*(x**2) + (1.1345878258*x) - 1.9233230134;
     }    
     lemonScore = Math.round(lemonScore * 10) / 10;
-    console.log("Lemon score is " + lemonScore);
 
     //sugar score
     var sugarScore;
@@ -591,7 +601,6 @@ $(document).ready(function() {
       sugarScore = 0.0043069602*(y**4) - 0.100287569*(y**3) + 0.7916398999*(y**2) - (2.40001202868*y) + 1.1563859055;
     }  
     sugarScore = Math.round(sugarScore * 10) / 10;
-    console.log("Sugar score is " + sugarScore);
 
     //ice score
     var iceScore;
@@ -602,11 +611,10 @@ $(document).ready(function() {
       iceScore = -0.08*(z**2) + 0.71*z - 0.56;
     }
     iceScore = Math.round(iceScore * 10) / 10;
-    console.log("Ice score is " + iceScore);
 
     //compute aggregate score
     var recipeScore = Math.round( ((lemonScore * 0.4) + (sugarScore * 0.4) + (iceScore * 0.2)) * 10 ) / 10;
-    console.log("Total score is " + recipeScore);
+    console.log("Recipe score is " + recipeScore);
     return recipeScore;
   };
 

@@ -4,6 +4,8 @@
 
 <head>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="assets/css/styles.css">
 
   <script
@@ -15,43 +17,58 @@
 
 <body>
   <div id="game">
-  </div>
 
-  <div id="start-screen">
-    <div class="row">
-      <div id="game-name">
-        <h1>lemonade</h1>
-      </div>
-    </div>
-    <div id="start">
-      <div id="splash"><img src="https://s3.amazonaws.com/lemonade-stand/lemon.svg"></div>
-    </div>
-    <div class="row">
-      <button id="start-button">Start Game</button>
-    </div>
-  </div>
+    
 
-  <div id="introduction-screen">
-    <div class="row">
-      <div id="game-name">
-        <h1>lemonade</h1>
-      </div>
-    </div>
-    <div id="introduction">
-    </div>
-    <div class="row">
-      <button id="next-button">Next</button>
+  </div>
+</body>
+
+<div id="start-screen">
+  <div class="row">
+    <div id="title">
+      lemonade
     </div>
   </div>
+  <div id="splash">
+    <div class="row" >    
+      <img src="https://s3.amazonaws.com/lemonade-stand/lemon.svg">
+    </div>
+  </div>
+  <div class="row">
+    <button id="start-button">Start Game</button>
+  </div>
+  <div class="row">
+    <a href="#" id="skip-intro">or click here to skip intro</a>
+  </div>
+</div>
+
+<div id="introduction-screen">
+  <div class="row">
+    <div id="title">
+      lemonade
+    </div>
+  </div>
+  <div id="introduction">
+  </div>
+  <div class="row">
+    <button id="next-button">Next</button>
+  </div>
+</div>
 
   <div id="intro1">
-    <h4>What do you give an injured lemon?</h4>
-    <h5>Lemon-aid!</h5>
-    <div class="row-thin">
+    <div class="row">
+      <h4>What do you give an injured lemon?</h4>
+    </div>
+    <div class="row">
+      <h5>Lemon-aid!</h5>
+    </div>
+    <div class="row">
       <p>Welcome to the game where you make lemonade.</p>
     </div>
-    <div class="row-thin">
+    <div class="row">
       <p>You start with a little bit of money</p>
+    </div>
+    <div class="row-thin">
       <img src="https://s3.amazonaws.com/lemonade-stand/money.svg" class="intro-img">
     </div>
     <div class="row-thin">
@@ -64,66 +81,104 @@
   </div>
 
   <div id="intro2">
-    <div class="row-thin">
+    <div class="row">
       <p>When you have enough ingredients, click on the pitcher to make more lemonade.</p>
+    </div>
+    <div class="row">
       <img src="https://s3.amazonaws.com/lemonade-stand/pitcher.svg" class="intro-img">
     </div>
-    <div class="row-thin">
+    <div class="row">
       <p>When you're ready, click "start day" to sell your lemonade.</p>
-      <p>Make sure you have enough cups!</p>
+    </div>
+    <div class="row">
+      <p>If lots of customers like your lemonade, you'll earn reputation points!</p>
+    </div>
+    <div class="row">
+      <img src="https://s3.amazonaws.com/lemonade-stand/reputation.svg" class="intro-img">
+    </div>
+    
+  </div>
+
+  <div id="intro3">
+    <div class="row">
+      <p>Pay attention to the weather forecast.</p>
+    </div>
+    <div class="row">
+      <img src="https://s3.amazonaws.com/lemonade-stand/sunny.svg" class="intro-img">
+      <img src="https://s3.amazonaws.com/lemonade-stand/partly-cloudy.svg" class="intro-img">
+      <img src="https://s3.amazonaws.com/lemonade-stand/cloudy.svg" class="intro-img">
+      <img src="https://s3.amazonaws.com/lemonade-stand/rainy.svg" class="intro-img">
+    </div>
+    <div class="row">
+      <p>You can change your price per cup, lemonade recipe, and marketing spending in the options menu.</p>
+    </div>
+    <div class="row">
+      <img src="https://s3.amazonaws.com/lemonade-stand/options.svg" class="intro-img">
+    </div>
+    <div class="row">
+      <p>Don't forget to buy cups! And remember, any lemonade you don't sell is thrown out at the end of the day.</p>
     </div>
   </div>
 
   <div id="play-screen">
-    <div id="play">
-      <div class="row">
-        <div id="game-name">
-          <h1>lemonade</h1>
-        </div>
-      </div>
-      <div id="info">
-        <div class="row-thin" id="weather">
-          <img src="https://s3.amazonaws.com/lemonade-stand/sunny.svg" class="option-img">
-        </div>
-        <div class="row-thin" id="day-num">
-        Day 0
-        </div>
-        <div class="row-thin" id="message">
-        </div>
-        <div class="row-thin clickable" id="options-open">
-          <img src="https://s3.amazonaws.com/lemonade-stand/options-green.svg" class="option-img">
-        </div>
-      </div>
-      <div class="row">
-        <div class="items" id="money">
-          100
-        </div>
-        <div class="items clickable" id="pitchers">
-          0
-        </div>
-        <div class="items" id="reputation">
-          0
-        </div>
-      </div>
-      <div class="row-thin">
-        <div class="items clickable buyable" id="lemons">
-          0
-        </div>
-        <div class="items clickable buyable" id="sugar">
-          0
-        </div>
-        <div class="items clickable buyable" id="ice">
-          0
-        </div>
-        <div class="items clickable buyable" id="cups">
-          0
-        </div>
-      </div>
-      <div class="row">
-        <button id="start-day">Start Day</button>
+
+    <div class="row">
+      <div id="title">
+        lemonade
       </div>
     </div>
-    <div id="options-screen">
+
+    <div class="row">
+      <div id="info">
+        <div class="info-row clickable">
+          <div class="icon" id="weather">
+            <div id="start-day">
+              Start Day?
+            </div>
+          </div>
+        </div>
+        <div class="message-row">
+          <div id="message">
+            Hello I'm a message about lemonade. Let's stuff some more words in here.
+          </div>
+        </div>
+        <div class="info-row clickable">
+          <div class= "icon" id="options-open">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row row-fat">
+      <div class="icon" id="reputation">
+        0
+      </div>
+      <div class="icon clickable" id="pitchers">
+        0
+      </div>
+      <div class="icon" id="money">
+        0
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icon clickable buyable" id="lemons">
+        0
+      </div>
+      <div class="icon clickable buyable" id="sugar">
+        0
+      </div>
+      <div class="icon clickable buyable" id="ice">
+        0
+      </div>
+      <div class="icon clickable buyable" id="cups">
+        0
+      </div>
+    </div>
+  </div>
+
+<div id="options-box">
+  <div id="options-screen">
       <div class="clickable" id="options-close">
         <img src="https://s3.amazonaws.com/lemonade-stand/options-red.svg" class="option-img">
       </div>
@@ -143,91 +198,90 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="price-screen">
-    <div class="row" id="price-sub">
-      Set price per cup
-      <div class="row-lean">
-        <div id="display-price"></div>
-      </div>
-      <div class="row-thin">
-        <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-price option-img" id="plus-price">
-        <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-price option-img" id="minus-price">
-      </div>
-      <div class="row-lean">
-        <img src="https://s3.amazonaws.com/lemonade-stand/confirm.svg" class="confirm option-img">
-        <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
-      </div>
-    </div>
-  </div>
-
-  <div id="marketing-screen">
-    <div class="row" id="marketing-sub">
-      Marketing spend per day
-      <div class="row-lean">
-        <div id="display-marketing"></div>
-      </div>
-      <div class="row-thin">
-        <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-marketing option-img" id="plus-marketing">
-        <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-marketing option-img" id="minus-marketing">
-      </div>
-      <div class="row-lean">
-        <img src="https://s3.amazonaws.com/lemonade-stand/confirm.svg" class="confirm option-img">
-        <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
-      </div>
-    </div>
-  </div>
-
-  <div id="recipe-screen">
-    <div id="recipe-sub">
-      <div class="row">
-        <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-recipe option-img-sm" id="plus-lemons">
-        <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-recipe option-img-sm" id="plus-sugar">
-        <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-recipe option-img-sm" id="plus-ice">
-      </div>
-      <div class="row-thin">
-        <div class="recipe-item" id="recipe-lemons">
-          0
+    <div id="price-screen">
+      <div class id="price-sub">
+        <div class="row">
+          Set price per cup
         </div>
-        <div class="recipe-item" id="recipe-sugar">
-          0
+        <div class="row">
+          <div id="display-price"></div>
         </div>
-        <div class="recipe-item" id="recipe-ice">
-          0
+        <div class="row-thin">
+          <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-price option-img" id="plus-price">
+          <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-price option-img" id="minus-price">
+        </div>
+        <div class="row">
+          <img src="https://s3.amazonaws.com/lemonade-stand/confirm.svg" class="confirm option-img">
+          <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
         </div>
       </div>
-      <div class="row-thin">
-        <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-recipe option-img-sm" id="minus-lemons">
-        <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-recipe option-img-sm" id='minus-sugar'>
-        <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-recipe option-img-sm" id="minus-ice">
+    </div>
+
+    <div id="marketing-screen">
+      <div id="marketing-sub">
+        <div class="row">
+          Marketing spend per day
+        </div>
+        <div class="row">
+          <div id="display-marketing"></div>
+        </div>
+        <div class="row-thin">
+          <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-marketing option-img" id="plus-marketing">
+          <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-marketing option-img" id="minus-marketing">
+        </div>
+        <div class="row">
+          <img src="https://s3.amazonaws.com/lemonade-stand/confirm.svg" class="confirm option-img">
+          <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
+        </div>
       </div>
-      <div class="row-thin">
-        <img src="https://s3.amazonaws.com/lemonade-stand/confirm.svg" class="confirm option-img">
-        <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
+    </div>
+
+    <div id="recipe-screen">
+      <div id="recipe-sub">
+        <div class="row">
+          <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-recipe option-img-sm" id="plus-lemons">
+          <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-recipe option-img-sm" id="plus-sugar">
+          <img src="https://s3.amazonaws.com/lemonade-stand/plus.svg" class="change-recipe option-img-sm" id="plus-ice">
+        </div>
+        <div class="row-thin">
+          <div class="recipe-item" id="recipe-lemons">
+            0
+          </div>
+          <div class="recipe-item" id="recipe-sugar">
+            0
+          </div>
+          <div class="recipe-item" id="recipe-ice">
+            0
+          </div>
+        </div>
+        <div class="row-thin">
+          <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-recipe option-img-sm" id="minus-lemons">
+          <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-recipe option-img-sm" id='minus-sugar'>
+          <img src="https://s3.amazonaws.com/lemonade-stand/minus.svg" class="change-recipe option-img-sm" id="minus-ice">
+        </div>
+        <div class="row-thin">
+          <img src="https://s3.amazonaws.com/lemonade-stand/confirm.svg" class="confirm option-img">
+          <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
+        </div>
+      </div>
+    </div>
+
+    <div id="recipe-error">
+      <div id="recipe-error-sub">
+        <div class="message-row">
+          Oops! You can't change your recipe when you already have lemonade on hand made with a different recipe.
+        </div>
+        <div class="info-row">
+          <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
+        </div>
       </div>
     </div>
   </div>
 
-  <div id="recipe-error">
-    <div id="recipe-error-sub">
-      <div class="row-thin">
-        Oops!
-      </div>
-      <div class="row-thin">
-        You can't change your recipe when you have already made lemonade.
-      </div>
-      <div class="row-thin">
-        Start the day to sell the lemonade on hand, then change your recipe first thing tomorrow.
-      </div>
-      <div class="row-thin">
-        <img src="https://s3.amazonaws.com/lemonade-stand/cancel.svg" class="cancel option-img">
-      </div>
-    </div>
-  </div>
+    
 
 
   <script src="assets/js/game.js"></script>
-</body>
 
 </html>

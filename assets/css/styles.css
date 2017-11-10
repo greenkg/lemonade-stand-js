@@ -2,6 +2,15 @@
 
 body {
   font-family: "Gloria Hallelujah", sans-serif;
+  line-height: 5vh;
+  font-size: 3vh;
+  text-align: center;
+}
+
+#title {
+  font-family: "Satisfy", san-serif;
+  font-size: 200%;
+  color: white;
 }
 
 div, p, h1, h2, h3, h4, h5, h6 {
@@ -20,31 +29,42 @@ button {
 }
 
 #game {
-  width: 400px;
-  height: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 95vh;
+  width: 70vh;
   background-color: skyblue;
-  text-align: center;
+  border-radius: 5vh;
 }
 
-#start-screen, #introduction-screen, #intro1, #intro2, #play-screen, #price-screen, #marketing-screen, #recipe-screen, #recipe-error {
+#start-screen, #introduction-screen, #intro1, #intro2, #intro3, #play-screen, #price-screen, #marketing-screen, #recipe-screen, #recipe-error {
   display: none;
 }
 
-#splash, #introduction {
-  height: 440px;
+#skip-intro {
+  text-decoration: none;
+  color: black;
 }
 
 #introduction {
-  font-size: 120%;
+  font-size: 3.25vh;
+  height: 72vh;
 }
 
 .intro-img {
-  width: 70px;
-  height: 70px;
+  width: 10vh;
+  height: 10vh;
 }
 
 #start-button, #next-button {
   cursor: pointer;
+}
+
+#splash {
+  height: 65vh;
 }
 
 #splash img {
@@ -55,35 +75,43 @@ button {
 #info {
   display: flex;
   flex-direction: column;
-  margin: auto;
-  padding-top: -20px;
-  width: 250px;
-  height: 250px;
-  border-radius: 125px;
-  background-color: rgba(250, 240, 230, 1);
-  justify-content: center;
+  height: 50vh;
+  width: 50vh;
+  border-radius: 25vh;
+  background-color: ghostwhite;
   align-items: center;
+  justify-content: center;
 }
 
-#play {
+.info-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
+  height: 10vh;
+}
+
+.message-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   text-align: center;
+  height: 20vh;
+  width: 40vh;
 }
 
 .row {
-  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 3vh;
+  width: 70vh;
 }
 
-.row-lean {
-  padding-top: 15px;
-}
-
-.row-thin {
-  padding-top: 10px;
-}
-
-#game-name {
-  font-family: "Satisfy", serif;
-  color: white;
+.row-fat {
+  padding-top: 5vh;
 }
 
 .clickable {
@@ -95,61 +123,76 @@ button {
   -o-user-select: none;
 }
 
-.items {
-  height: 35px;
-  width: 70px;
-  display: inline-block;
-  margin: 0px 10px 0px 10px;
-  padding-top: 35px;
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18vh;
+  height: 10vh;
 }
 
 #money {
-  background-color: green;
   background: url(https://s3.amazonaws.com/lemonade-stand/money.svg);
-  background-size: 70px 70px;
+  background-size: 10vh 10vh;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
-#pitchers {
-  background-color: orange;
-  background: url(https://s3.amazonaws.com/lemonade-stand/pitcher.svg);
-  background-size: 70px 70px;
+#weather {
+  background: url(https://s3.amazonaws.com/lemonade-stand/cloudy.svg);
+  background-size: 10vh 10vh;
   background-repeat: no-repeat;
+  background-position: center;
+  align-items: flex-end;
+}
+
+#options-open {
+  background: url(https://s3.amazonaws.com/lemonade-stand/options.svg);
+  background-size: 10vh 10vh;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #reputation {
-  background-color: pink;
   background: url(https://s3.amazonaws.com/lemonade-stand/reputation.svg);
-  background-size: 70px 70px;
+  background-size: 10vh 10vh;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
-#lemons {
-  background-color: yellow;
-  background: url(https://s3.amazonaws.com/lemonade-stand/lemon-item.svg);
-  background-size: 70px 70px;
+#pitchers {
+  background: url(https://s3.amazonaws.com/lemonade-stand/pitcher.svg);
+  background-size: 10vh 10vh;
   background-repeat: no-repeat;
-}
-
-#sugar {
-  background-color: lightgray;
-  background: url(https://s3.amazonaws.com/lemonade-stand/sugar.svg);
-  background-size: 70px 70px;
-  background-repeat: no-repeat;
-}
-
-#ice {
-  background-color: lightblue;
-  background: url(https://s3.amazonaws.com/lemonade-stand/ice.svg);
-  background-size: 70px 70px;
-  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #cups {
-  background-color: red;
   background: url(https://s3.amazonaws.com/lemonade-stand/cups.svg);
-  background-size: 70px 70px;
+  background-size: 10vh 10vh;
   background-repeat: no-repeat;
+  background-position: center;
+}
+
+#lemons {
+  background: url(https://s3.amazonaws.com/lemonade-stand/lemon-item.svg);
+  background-size: 10vh 10vh;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#sugar {
+  background: url(https://s3.amazonaws.com/lemonade-stand/sugar.svg);
+  background-size: 10vh 10vh;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#ice {
+  background: url(https://s3.amazonaws.com/lemonade-stand/ice.svg);
+  background-size: 10vh 10vh;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .option-img-sm {
@@ -189,43 +232,36 @@ button {
   display: none;
   content: "";
   position: absolute;
-  top: 7px;
-  left: 7px;
-  width: 400px;
-  height: 600px;
+  height: 95vh;
+  width: 70vh;
   background-color: rgba(0, 0, 255, 0.7);
-}
-
-#options-open {
-
+  text-align: center;
+  border-radius: 5vh;
 }
 
 #options-close {
-  position: absolute;
-  top: 268px;
-  left: 176px;
+  padding-top: 51vh;
 }
 
 .option-img {
-  width: 50px;
-  height: 50px;
+  width: 10vh;
+  height: 10vh;
 }
 
 .option {
   display: none;
   position: absolute;
-  border-radius: 50px;
-  top: 250px;
-  left: 150px;
+  top: 50vh;
+  left: 25vh;
+  border-radius: 10vh;
 }
 
 .option-flex {
   display: flex;
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
-  width: 100px;
-  height: 100px;
-  line-height: 100%;
+  width: 20vh;
+  height: 20vh;
 }
 
 #change-recipe {  

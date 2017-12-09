@@ -1,7 +1,3 @@
-/*jslint white:true, devel:true */
-/*jslint browser: true*/
-/*global $, jQuery, alert*/
-/* jshint latedef:nofunc */
 $(document).ready(function () {
 
     "use strict";
@@ -84,97 +80,6 @@ $(document).ready(function () {
 
     // Functions not directly called by user actions
 
-    // OPTIONS MENU ANIMATIONS
-
-    function openOptionsMenu() {
-        $("#game").append($("#options-box").html());
-        $("#options-screen").fadeIn(300, function () {
-            $(".option").fadeIn({queue: false, duration: 600});
-            $("#change-recipe").animate({left: "-=22vh", top: "+=10vh"}, 300);
-            $("#set-marketing").animate({left: "-=0vh", top: "+=15vh"}, 300);
-            $("#set-price").animate({left: "+=22vh", top: "+=10vh"}, 300);
-        });
-    }
-
-    function closeOptionsMenu() {
-        $("#options-screen").fadeOut();
-        $(".option").fadeOut(function () {
-            $(".option").css({top: "50vh", left: "25vh"});
-        });
-    }
-
-    function animateOption(elementId) {
-        var xCoord;
-        var yCoord;
-        var displayElement;
-        if (elementId === "#set-price") {
-            xCoord = "-=38vh";
-            yCoord = "-=47vh";
-            setDisplayPrice();
-            drawPrice();
-            displayElement = "#price-screen";
-        } else if (elementId === "#set-marketing") {
-            xCoord = "-=16vh";
-            yCoord = "-=52vh";
-            displayElement = "#marketing-screen";
-            setDisplayMarketing();
-            drawMarketing();
-        } else if (elementId === "#change-recipe") {
-            xCoord = "+=6vh";
-            yCoord = "-=48vh";
-            if (inventory.pitchers > 0) {
-                displayElement = "#recipe-error";
-            } else {
-                displayElement = "#recipe-screen";
-            }
-            setDisplayRecipe();
-            drawRecipe();
-        }
-        $(elementId).animate({left: xCoord, top: yCoord, height: "52vh", width: "52vh", borderRadius: "27vh"}, 300);
-        $(elementId).addClass("clicked");
-        $(elementId).children().css({height: "52vh", width: "52vh"}).html($(displayElement).html());
-        $(elementId).siblings().fadeOut();
-        drawMarketing();
-    }
-
-    function animatePriceReverse(elementId) {
-        var xCoord;
-        var yCoord;
-        var displayText;
-        if (elementId === "#set-price") {
-            xCoord = "+=38vh";
-            yCoord = "+=47vh";
-            displayText = "Set price";
-        } else if (elementId === "#set-marketing") {
-            xCoord = "+=16vh";
-            yCoord = "+=52vh";
-            displayText = "Set marketing spend";
-        } else if (elementId === "#change-recipe") {
-            xCoord = "-=6vh";
-            yCoord = "+=48vh";
-            displayText = "Change recipe";
-        }
-        $(elementId).animate({left: xCoord, top: yCoord, height: "20vh", width: "20vh", borderRadius: "10vh"}, 300);
-        $(elementId).children().empty().css({height: "20vh", width: "20vh"}).html(displayText);
-        $(elementId).siblings().fadeIn();
-        $(elementId).removeClass("clicked");
-    }
-
-    // START GAME FUNCTION
-
-    function startGame(money, pitchers, lemons, sugar, ice, cups) {
-        var keys = Object.keys(inventory);
-        var i;
-        var m = keys.length;
-        screen = $("#start-screen").html();
-        drawGame();
-        for (i = 0; i < m; i += 1) {
-            inventory[keys[i]] = arguments[i];
-        }
-        drawItems();
-        drawInfo();
-    }
-
     // DRAW FUNCTIONS
 
     function drawGame() {
@@ -186,13 +91,6 @@ $(document).ready(function () {
         drawDay();
     }
 
-    function drawMessage() {
-        $("#message").html(message);
-    }
-
-    function drawDay() {
-        $("#day-num").html("Day " + day);
-    }
 
     function drawItem(item) {
         var element = "#" + item;
@@ -358,6 +256,97 @@ $(document).ready(function () {
         }
     }
 
+    // OPTIONS MENU ANIMATIONS
+
+    function openOptionsMenu() {
+        $("#game").append($("#options-box").html());
+        $("#options-screen").fadeIn(300, function () {
+            $(".option").fadeIn({queue: false, duration: 600});
+            $("#change-recipe").animate({left: "-=22vh", top: "+=10vh"}, 300);
+            $("#set-marketing").animate({left: "-=0vh", top: "+=15vh"}, 300);
+            $("#set-price").animate({left: "+=22vh", top: "+=10vh"}, 300);
+        });
+    }
+
+    function closeOptionsMenu() {
+        $("#options-screen").fadeOut();
+        $(".option").fadeOut(function () {
+            $(".option").css({top: "50vh", left: "25vh"});
+        });
+    }
+
+    function animateOption(elementId) {
+        var xCoord;
+        var yCoord;
+        var displayElement;
+        if (elementId === "#set-price") {
+            xCoord = "-=38vh";
+            yCoord = "-=47vh";
+            setDisplayPrice();
+            drawPrice();
+            displayElement = "#price-screen";
+        } else if (elementId === "#set-marketing") {
+            xCoord = "-=16vh";
+            yCoord = "-=52vh";
+            displayElement = "#marketing-screen";
+            setDisplayMarketing();
+            drawMarketing();
+        } else if (elementId === "#change-recipe") {
+            xCoord = "+=6vh";
+            yCoord = "-=48vh";
+            if (inventory.pitchers > 0) {
+                displayElement = "#recipe-error";
+            } else {
+                displayElement = "#recipe-screen";
+            }
+            setDisplayRecipe();
+            drawRecipe();
+        }
+        $(elementId).animate({left: xCoord, top: yCoord, height: "52vh", width: "52vh", borderRadius: "27vh"}, 300);
+        $(elementId).addClass("clicked");
+        $(elementId).children().css({height: "52vh", width: "52vh"}).html($(displayElement).html());
+        $(elementId).siblings().fadeOut();
+        drawMarketing();
+    }
+
+    function animateOptionReverse(elementId) {
+        var xCoord;
+        var yCoord;
+        var displayText;
+        if (elementId === "#set-price") {
+            xCoord = "+=38vh";
+            yCoord = "+=47vh";
+            displayText = "Set price";
+        } else if (elementId === "#set-marketing") {
+            xCoord = "+=16vh";
+            yCoord = "+=52vh";
+            displayText = "Set marketing spend";
+        } else if (elementId === "#change-recipe") {
+            xCoord = "-=6vh";
+            yCoord = "+=48vh";
+            displayText = "Change recipe";
+        }
+        $(elementId).animate({left: xCoord, top: yCoord, height: "20vh", width: "20vh", borderRadius: "10vh"}, 300);
+        $(elementId).children().empty().css({height: "20vh", width: "20vh"}).html(displayText);
+        $(elementId).siblings().fadeIn();
+        $(elementId).removeClass("clicked");
+    }
+
+    // START GAME FUNCTION
+
+    function startGame(money, pitchers, lemons, sugar, ice, cups) {
+        var keys = Object.keys(inventory);
+        var i;
+        var m = keys.length;
+        screen = $("#start-screen").html();
+        drawGame();
+        for (i = 0; i < m; i += 1) {
+            inventory[keys[i]] = arguments[i];
+        }
+        drawItems();
+        drawInfo();
+    }
+
     // BUY INVENTORY
 
     function buyItem(item, qty, price) {
@@ -442,7 +431,7 @@ $(document).ready(function () {
     function priceAdjust(customers) {
         var multiplier = -0.175 + (reputationPoints * 5/1000);
         var constant = 1.2 + (reputationPoints * 5/1000);
-        var adjustment = -0.025*(price**2) + (multiplier*price) + constant;
+        var adjustment = -0.025 * (price ** 2) + (multiplier * price) + constant;
         adjustment = Math.max(0, adjustment);
         var adjustedCustomers = customers * adjustment;
         return adjustedCustomers;
@@ -625,13 +614,13 @@ $(document).ready(function () {
     $("body").on("click", ".cancel", function (e) {
         var parentElementId = "#" + $(e.target).parents().eq(3).attr("id");
         e.stopPropagation();
-        animatePriceReverse(parentElementId);
+        animateOptionReverse(parentElementId);
     });
 
     $("body").on("click", ".confirm", function (e) {
         var parentElementId = "#" + $(e.target).parents().eq(3).attr("id");
         e.stopPropagation();
-        animatePriceReverse(parentElementId);
+        animateOptionReverse(parentElementId);
         confirmChanges(parentElementId);
         closeOptionsMenu();
     });
